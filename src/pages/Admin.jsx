@@ -9,6 +9,7 @@ const Admin = () => {
       .then((response) => {
         const pendingRequests = response.data.map((request) => ({
           ...request,
+       //   operation: request.status === 'pending' ? 'create' : '',
         }));
         setNotifications(pendingRequests);
       })

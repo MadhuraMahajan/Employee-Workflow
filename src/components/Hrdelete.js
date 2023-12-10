@@ -7,18 +7,16 @@ const Hrhome = () => {
   const [empList, setEmpList] = useState([]);
 
   useEffect(() => {
-    empService.getAllEmp()
-      .then((res) => {
-        console.log(res.data);
-        setEmpList(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    empService.getAllEmp().then((res) => {
+      console.log(res.data);
+      setEmpList(res.data);
+    }).catch((error) => {
+      console.log(error);
+    });
   }, []);
 
   const handleDelete = (employeeId) => {
-    empService.submitDeleteApproval(employeeId)
+    empService.submitDelateApproval(employeeId)
       .then((res) => {
         // Optionally, update the state or refetch data after successful submission
         // ...
@@ -28,6 +26,13 @@ const Hrhome = () => {
       });
   };
 
+  const notifyAdmin = (employeeId, operation) => {
+    // Notify admin about the delete operation
+    axios.post('/api/admin/notify', { employeeId, operation })
+      .then((response) => console.log('Notification sent to admin'))
+      .catch((error) => console.error('Error notifying admin:', error));
+  };
+
   return (
     <div className='container'>
       <h1 className='text-center mt-5'>Delete Employee</h1>
@@ -35,14 +40,15 @@ const Hrhome = () => {
       <table className="table mt-5">
         <thead className='bg_light'>
           <tr>
-            <th scope="col">EmpId</th>
+          <th scope="col">EmpId</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
             <th scope="col">PhoneNo</th>
+            
           </tr>
         </thead>
         <tbody>
-          {empList.map((employee) => (
+          {empList.map((employee, num) => (
             <tr key={employee.id}>
               <td>{employee.empId}</td>
               <td>{employee.empname}</td>

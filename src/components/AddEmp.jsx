@@ -31,8 +31,6 @@ const submitEmp = (e) => {
       });
 };
 
-
-
   return (
     <div className='container'>
       <div className='row'>
