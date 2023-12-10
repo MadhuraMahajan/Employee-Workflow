@@ -96,4 +96,4 @@ const DeleteEmployee = () => {
   )
 }
 
-export default DeleteEmployee;;
+export default DeleteEmployee;; 
